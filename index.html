@@ -3,181 +3,552 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slide Musik: Notasi untuk Kelas 5</title>
+    <title>Petualangan Notasi Balok - Kelas 5 SD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* 1. RESET & BASIC SETUP */
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background-color: #f0f8ff;
-            color: #333;
-            display: flex;
+        }
+
+        body {
+            background-color: #f0fdf4; /* Light Mint Background */
+            font-family: 'Nunito', sans-serif;
+            display: grid;
+            gap: 40px;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            padding: 40px 0;
+            min-height: 100vh;
         }
-        .container {
-            width: 80%;
-            max-width: 800px;
-            height: 80%;
+
+        /* 2. SLIDE CONTAINER STYLE */
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
             position: relative;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 60px;
+            border: 4px solid #fff; /* White border for crispness */
         }
-        .slide {
-            display: none;
+
+        /* 2.1 Decorative Background Elements (Abstract Shapes) */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #fcd34d 0%, rgba(252, 211, 77, 0) 70%);
+            opacity: 0.6;
+            z-index: 0;
+            border-radius: 50%;
+        }
+
+        .slide-container::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #6ee7b7 0%, rgba(110, 231, 183, 0) 70%);
+            opacity: 0.5;
+            z-index: 0;
+            border-radius: 50%;
+        }
+        
+        /* Ensure content sits above background blobs */
+        .slide-content, .title-wrapper, .content-area {
+            z-index: 10;
+            position: relative;
+        }
+
+        /* 3. TYPOGRAPHY */
+        h1, h2, h3 {
+            font-family: 'Fredoka', sans-serif;
+            color: #1f2937;
+        }
+
+        h1 {
+            font-size: 80px;
+            color: #059669; /* Emerald Green */
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0px #a7f3d0;
+        }
+
+        h2 {
+            font-size: 52px;
+            color: #d97706; /* Amber */
+            margin-bottom: 30px;
+        }
+
+        p, li, td, th {
+            font-size: 24px;
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        /* 4. LAYOUTS */
+        
+        /* Title Slide Layout */
+        .title-slide-layout {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            align-items: center;
+        }
+        
+        .title-slide-layout .subtitle {
+            font-size: 32px;
+            background-color: #fef3c7;
+            padding: 10px 30px;
+            border-radius: 50px;
+            color: #b45309;
+            font-weight: 700;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            height: 100%;
+        }
+
+        .image-box {
+            background-color: #eff6ff;
+            border-radius: 20px;
+            padding: 20px;
+            border: 3px dashed #bfdbfe;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 400px;
+        }
+
+        .image-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        /* Tiled Layout for Notes */
+        .note-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .note-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 2px solid #e5e7eb;
+            transition: transform 0.2s;
+        }
+        
+        .note-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+        }
+
+        .note-symbol {
+            font-size: 60px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3b82f6;
+            margin-bottom: 10px;
+        }
+
+        .note-name {
+            font-weight: 700;
+            color: #1f2937;
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .note-value {
+            color: #d97706;
+            font-weight: 700;
+            font-size: 28px;
+        }
+
+        /* List Styling */
+        ul.fun-list {
+            list-style: none;
+        }
+        
+        ul.fun-list li {
+            margin-bottom: 20px;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        ul.fun-list li::before {
+            font-family: "Font Awesome 6 Free";
+            content: "\f001"; /* Music Note Icon */
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-size: 24px;
+        }
+
+        /* Interactive Quiz Styles */
+        .quiz-container {
+            background-color: #fdf2f8;
+            border-radius: 20px;
             padding: 40px;
             text-align: center;
-            height: 100%;
-            box-sizing: border-box;
+            border: 2px solid #fbcfe8;
         }
-        .slide.active {
-            display: block;
+
+        .question {
+            font-size: 36px;
+            font-weight: 700;
+            color: #831843;
+            margin-bottom: 40px;
         }
-        .slide h1 {
-            color: #ff6347;
-            font-size: 2.5em;
-            margin-bottom: 20px;
+
+        .options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
         }
-        .slide h2 {
-            color: #4682b4;
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
-        .slide p {
-            font-size: 1.2em;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        .slide img {
-            max-width: 100%;
-            height: auto;
-            margin: 20px 0;
-            border-radius: 10px;
-        }
-        .nav {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        button {
-            background-color: #ff6347;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1em;
+
+        .quiz-btn {
+            background-color: white;
+            border: 3px solid #f472b6;
+            color: #831843;
+            padding: 15px 30px;
+            font-size: 24px;
+            font-family: 'Fredoka', sans-serif;
+            border-radius: 50px;
             cursor: pointer;
-            border-radius: 5px;
-            margin: 0 10px;
+            transition: all 0.3s ease;
+            min-width: 150px;
         }
-        button:hover {
-            background-color: #ff4500;
+
+        .quiz-btn:hover {
+            background-color: #f472b6;
+            color: white;
+            transform: scale(1.05);
         }
-        .note {
-            font-size: 3em;
-            color: #4682b4;
-            margin: 20px 0;
+
+        .feedback {
+            margin-top: 20px;
+            font-size: 28px;
+            font-weight: 700;
+            min-height: 40px;
         }
+        
+        .feedback.correct { color: #059669; }
+        .feedback.wrong { color: #dc2626; }
+
+        /* Highlight box */
+        .highlight-box {
+            background-color: #fffbeb;
+            border-left: 8px solid #f59e0b;
+            padding: 20px 30px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 20px;
+        }
+
+        .highlight-box strong {
+            color: #b45309;
+        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <div id="slide1" class="slide active">
-            <h1>Selamat Datang!</h1>
-            <h2>Materi Notasi Musik untuk Kelas 5</h2>
-            <p>Hai teman-teman! Hari ini kita akan belajar tentang notasi musik. Notasi musik adalah cara menulis musik agar bisa dibaca dan dimainkan. Mari mulai petualangan kita!</p>
-            <img src="https://via.placeholder.com/400x200?text=Musik+Notasi" alt="Ilustrasi Musik">
-        </div>
-        <div id="slide2" class="slide">
-            <h2>Apa itu Notasi Musik?</h2>
-            <p>Notasi musik adalah simbol-simbol yang digunakan untuk menulis lagu. Dengan notasi, kita bisa tahu nada apa yang harus dimainkan dan berapa lama.</p>
-            <p>Contoh: Notasi membantu kita membaca lagu seperti membaca buku!</p>
-            <img src="https://via.placeholder.com/400x200?text=Simbol+Musik" alt="Simbol Musik">
-        </div>
-        <div id="slide3" class="slide">
-            <h2>Not Balok</h2>
-            <p>Not balok adalah garis-garis yang digunakan sebagai dasar untuk menulis not. Ada 5 garis dan 4 ruang di antaranya.</p>
-            <p>Garis-garis ini membantu kita menentukan tinggi rendahnya nada.</p>
-            <img src="https://via.placeholder.com/400x200?text=Not+Balok" alt="Not Balok">
-        </div>
-        <div id="slide4" class="slide">
-            <h2>Jenis-Jenis Not</h2>
-            <p>Ada beberapa jenis not:</p>
-            <ul style="text-align: left; display: inline-block;">
-                <li><span class="note">♪</span> Not bulat (whole note): Lama 4 ketukan</li>
-                <li><span class="note">♫</span> Not putih (half note): Lama 2 ketukan</li>
-                <li><span class="note">♬</span> Not hitam (quarter note): Lama 1 ketukan</li>
-                <li>Not delapan (eighth note): Lama 1/2 ketukan</li>
-            </ul>
-            <p>Coba ingat-ingat simbolnya!</p>
-        </div>
-        <div id="slide5" class="slide">
-            <h2>Kunci Musik</h2>
-            <p>Kunci musik menunjukkan nada dasar. Kunci G (treble clef) sering digunakan untuk lagu-lagu tinggi.</p>
-            <p>Kunci F (bass clef) untuk nada rendah.</p>
-            <img src="https://via.placeholder.com/400x200?text=Kunci+G" alt="Kunci G">
-        </div>
-        <div id="slide6" class="slide">
-            <h2>Ritme dan Tempo</h2>
-            <p>Ritme adalah pola ketukan dalam musik. Tempo adalah kecepatan lagu.</p>
-            <p>Contoh: Lagu cepat seperti "Twinkle Twinkle Little Star" punya ritme yang menyenangkan!</p>
-            <img src="https://via.placeholder.com/400x200?text=Ritme" alt="Ritme Musik">
-        </div>
-        <div id="slide7" class="slide">
-            <h2>Contoh Lagu Sederhana</h2>
-            <p>Mari lihat contoh notasi lagu "Do Re Mi":</p>
-            <p>Do (C) - Re (D) - Mi (E) - Do (C)</p>
-            <p>Coba nyanyikan sambil melihat notnya!</p>
-            <img src="https://via.placeholder.com/400x200?text=Lagu+Do+Re+Mi" alt="Notasi Do Re Mi">
-        </div>
-        <div id="slide8" class="slide">
-            <h1>Selamat Belajar!</h1>
-            <h2>Akhir Slide</h2>
-            <p>Sekarang kamu sudah tahu dasar notasi musik. Praktikkan dengan bermain alat musik atau menyanyi. Sampai jumpa di pelajaran berikutnya!</p>
-            <img src="https://via.placeholder.com/400x200?text=Terima+Kasih" alt="Terima Kasih">
-        </div>
-        <div class="nav">
-            <button id="prev">Sebelumnya</button>
-            <button id="next">Selanjutnya</button>
+
+    <!-- Slide 1: Title -->
+    <div class="slide-container" id="slide1">
+        <div class="title-slide-layout">
+            <i class="fa-solid fa-music" style="font-size: 80px; color: #f59e0b; margin-bottom: 20px; animation: bounce 2s infinite;"></i>
+            <h1>Petualangan Musik</h1>
+            <p class="subtitle">Belajar Notasi Balok Kelas 5 SD</p>
         </div>
     </div>
-    <script>
-        let currentSlide = 1;
-        const totalSlides = 8;
 
-        function showSlide(slideNum) {
-            document.querySelectorAll('.slide').forEach(slide => slide.classList.remove('active'));
-            document.getElementById('slide' + slideNum).classList.add('active');
+    <!-- Slide 2: Introduction -->
+    <div class="slide-container" id="slide2">
+        <h2>Apa itu Notasi Balok?</h2>
+        <div class="content-area" style="flex-grow: 1;">
+            <div class="two-column">
+                <div>
+                    <ul class="fun-list">
+                        <li><strong>Bahasa Musik:</strong> Notasi balok adalah cara kita "menulis" dan "membaca" musik, sama seperti kita membaca buku!</li>
+                        <li><strong>Universal:</strong> Bisa dimainkan oleh alat musik apa saja di seluruh dunia (Piano, Gitar, Biola, dll).</li>
+                        <li><strong>Simbol Gambar:</strong> Berbeda dengan notasi angka (1, 2, 3), notasi balok menggunakan bulatan-bulatan cantik pada garis.</li>
+                    </ul>
+                    <div class="highlight-box">
+                        <strong>Ingat!</strong> Notasi balok menunjukkan tinggi rendahnya nada dan panjang pendeknya bunyi.
+                    </div>
+                </div>
+                <div class="image-box">
+                    <!-- Using cartoon notes image -->
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/9199481575190335109" alt="Karakter not balok kartun lucu">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Paranada (Staff) -->
+    <div class="slide-container" id="slide3">
+        <h2>Rumah Para Nada: Garis Paranada</h2>
+        <div class="content-area" style="flex-grow: 1;">
+            <div class="two-column">
+                <div class="image-box">
+                    <!-- Empty Staff Image -->
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/13578832658383926369" alt="5 Garis Paranada Kosong">
+                </div>
+                <div>
+                    <h3>5 Garis & 4 Spasi</h3>
+                    <p style="margin-bottom: 20px;">Bayangkan sebuah tangga yang memiliki 5 anak tangga dan 4 celah di antaranya.</p>
+                    <ul class="fun-list">
+                        <li><strong>Garis:</strong> Kita menghitungnya dari <strong>bawah ke atas</strong> (Garis 1, 2, 3, 4, 5).</li>
+                        <li><strong>Spasi:</strong> Ruang kosong di antara garis disebut spasi (Spasi 1, 2, 3, 4).</li>
+                    </ul>
+                    <p style="margin-top: 20px; font-size: 20px; background: #e0f2fe; padding: 10px; border-radius: 10px; text-align: center;">
+                        <i class="fa-solid fa-hand-point-up"></i> Semakin tinggi posisi not, semakin tinggi suaranya!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Kunci G (Treble Clef) -->
+    <div class="slide-container" id="slide4">
+        <h2>Sang Kapten: Kunci G (Treble Clef)</h2>
+        <div class="content-area" style="flex-grow: 1;">
+            <div class="two-column">
+                <div>
+                    <p>Lihat simbol cantik yang meliuk-liuk ini? Ini namanya <strong>Kunci G</strong>.</p>
+                    <br>
+                    <ul class="fun-list">
+                        <li>Bentuknya seperti huruf G yang indah.</li>
+                        <li><strong>Tugas Penting:</strong> Dia memberi tahu kita bahwa garis ke-2 dari bawah adalah rumah bagi nada <strong>G (Sol)</strong>.</li>
+                        <li>Biasanya digunakan untuk alat musik bernada tinggi seperti Gitar, Piano (tangan kanan), dan Biola.</li>
+                    </ul>
+                </div>
+                <div class="image-box">
+                    <!-- Treble Clef Image -->
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/12553398174962951961" alt="Simbol Kunci G pada garis paranada">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Bentuk & Nilai Not -->
+    <div class="slide-container" id="slide5">
+        <h2>Keluarga Not (Bentuk & Nilai)</h2>
+        <p style="text-align: center; margin-bottom: 20px;">Setiap bentuk not memiliki "harga" atau ketukan yang berbeda.</p>
+        <div class="content-area" style="flex-grow: 1; display: flex; align-items: center;">
+            <div class="note-grid" style="width: 100%;">
+                <!-- Whole Note -->
+                <div class="note-card">
+                    <div class="note-symbol"><i class="fa-regular fa-circle"></i></div>
+                    <div class="note-name">Not Penuh</div>
+                    <div class="note-value">4 Ketuk</div>
+                    <div style="font-size: 14px; color: #9ca3af;">"Ta-a-a-a"</div>
+                </div>
+                <!-- Half Note -->
+                <div class="note-card">
+                    <div class="note-symbol" style="position: relative; display: inline-block;">
+                        <i class="fa-regular fa-circle" style="transform: rotate(-45deg);"></i>
+                        <div style="position: absolute; right: -2px; top: -35px; width: 3px; height: 50px; background: #3b82f6;"></div>
+                    </div>
+                    <div class="note-name">Not 1/2</div>
+                    <div class="note-value">2 Ketuk</div>
+                    <div style="font-size: 14px; color: #9ca3af;">"Ta-a"</div>
+                </div>
+                <!-- Quarter Note -->
+                <div class="note-card">
+                    <div class="note-symbol"><i class="fa-solid fa-music"></i></div> <!-- Approximate visual -->
+                    <div class="note-name">Not 1/4</div>
+                    <div class="note-value">1 Ketuk</div>
+                    <div style="font-size: 14px; color: #9ca3af;">"Ta"</div>
+                </div>
+                <!-- Eighth Note -->
+                <div class="note-card">
+                    <div class="note-symbol"><i class="fa-solid fa-music"></i></div>
+                    <div class="note-name">Not 1/8</div>
+                    <div class="note-value">1/2 Ketuk</div>
+                    <div style="font-size: 14px; color: #9ca3af;">"Ti" (Cepat)</div>
+                </div>
+            </div>
+        </div>
+        <p style="text-align: center; font-size: 16px; margin-top: 20px; color: #6b7280;">*Simbol not disederhanakan untuk pembelajaran</p>
+    </div>
+
+    <!-- Slide 6: Tanda Istirahat -->
+    <div class="slide-container" id="slide6">
+        <h2>Saatnya Diam (Tanda Istirahat)</h2>
+        <div class="content-area" style="flex-grow: 1;">
+            <div class="two-column">
+                 <div class="image-box">
+                    <!-- Rests Chart Image -->
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/3058904620806964461" alt="Tabel simbol tanda istirahat musik">
+                </div>
+                <div>
+                    <p>Musik bukan hanya tentang bunyi, tapi juga tentang <strong>diam</strong>.</p>
+                    <br>
+                    <ul class="fun-list">
+                        <li><strong>Istirahat Penuh (4 ketuk):</strong> Seperti kotak menggantung di garis ke-4. (Diam lamaaa...)</li>
+                        <li><strong>Istirahat Setengah (2 ketuk):</strong> Seperti topi di atas garis ke-3.</li>
+                        <li><strong>Istirahat Seperempat (1 ketuk):</strong> Bentuknya unik seperti cacing atau petir! (Sst!)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Membaca Nada -->
+    <div class="slide-container" id="slide7">
+        <h2>Ayo Membaca Nada! (Tangga Nada C)</h2>
+        <div class="content-area" style="flex-grow: 1;">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <p>Urutan nada dasar: C - D - E - F - G - A - B - C'</p>
+                <p style="font-size: 20px; color: #d97706;">(Do - Re - Mi - Fa - Sol - La - Si - Do)</p>
+            </div>
+            
+            <div class="image-box" style="height: 350px;">
+                <!-- C Major Scale Image -->
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/9209325094372485079" alt="Tangga nada C Mayor pada not balok dengan nama nada">
+            </div>
+
+            <div style="display: flex; justify-content: space-around; margin-top: 30px;">
+                <div style="text-align: center;"><span style="font-size: 40px; color: #ef4444; font-weight: bold;">C</span><br>Garis Bantu Bawah</div>
+                <div style="text-align: center;"><span style="font-size: 40px; color: #f59e0b; font-weight: bold;">G</span><br>Garis Ke-2</div>
+                <div style="text-align: center;"><span style="font-size: 40px; color: #3b82f6; font-weight: bold;">C'</span><br>Spasi Ke-3</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: Interactive Quiz 1 -->
+    <div class="slide-container" id="slide8">
+        <h2>Kuis Musik Ajaib! 🎵</h2>
+        <div class="content-area" style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+            <div class="quiz-container" style="width: 80%;">
+                <p class="question">Not manakah yang memiliki nilai 1 ketuk?</p>
+                
+                <div class="options">
+                    <button class="quiz-btn" onclick="checkAnswer(this, false)">Not Penuh</button>
+                    <button class="quiz-btn" onclick="checkAnswer(this, true)">Not 1/4</button>
+                    <button class="quiz-btn" onclick="checkAnswer(this, false)">Not 1/2</button>
+                </div>
+
+                <div class="feedback" id="feedback1"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: Interactive Quiz 2 -->
+    <div class="slide-container" id="slide9">
+        <h2>Tebak Pengetahuan! 🧠</h2>
+        <div class="content-area" style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+            <div class="quiz-container" style="width: 80%; background-color: #ecfccb; border-color: #bef264;">
+                <p class="question" style="color: #3f6212;">Ada berapa garis dalam Paranada?</p>
+                
+                <div class="options">
+                    <button class="quiz-btn" style="color: #3f6212; border-color: #84cc16;" onclick="checkAnswer2(this, false)">4 Garis</button>
+                    <button class="quiz-btn" style="color: #3f6212; border-color: #84cc16;" onclick="checkAnswer2(this, true)">5 Garis</button>
+                    <button class="quiz-btn" style="color: #3f6212; border-color: #84cc16;" onclick="checkAnswer2(this, false)">6 Garis</button>
+                </div>
+
+                <div class="feedback" id="feedback2"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 10: Closing -->
+    <div class="slide-container" id="slide10">
+        <div class="title-slide-layout">
+            <i class="fa-solid fa-trophy" style="font-size: 100px; color: #f59e0b; margin-bottom: 30px;"></i>
+            <h1>Kamu Hebat!</h1>
+            <p style="font-size: 32px; max-width: 800px; text-align: center;">Selamat! Kamu sudah mengenal dasar-dasar notasi balok. Teruslah berlatih membaca dan memainkan musik!</p>
+            <br>
+            <p style="font-size: 20px; color: #9ca3af;">Materi Kelas 5 SD - Kurikulum Merdeka</p>
+        </div>
+    </div>
+
+    <script>
+        function checkAnswer(btn, isCorrect) {
+            const feedbackEl = document.getElementById('feedback1');
+            const allBtns = btn.parentElement.querySelectorAll('.quiz-btn');
+            
+            // Reset buttons
+            allBtns.forEach(b => {
+                b.style.backgroundColor = 'white';
+                b.style.color = '#831843';
+            });
+
+            if (isCorrect) {
+                btn.style.backgroundColor = '#059669'; // Green
+                btn.style.color = 'white';
+                feedbackEl.textContent = "Benar! Not 1/4 bernilai 1 ketuk. 🎉";
+                feedbackEl.className = "feedback correct";
+            } else {
+                btn.style.backgroundColor = '#dc2626'; // Red
+                btn.style.color = 'white';
+                feedbackEl.textContent = "Ups, coba lagi ya! 😉";
+                feedbackEl.className = "feedback wrong";
+            }
         }
 
-        document.getElementById('next').addEventListener('click', () => {
-            if (currentSlide < totalSlides) {
-                currentSlide++;
-                showSlide(currentSlide);
-            }
-        });
+        function checkAnswer2(btn, isCorrect) {
+            const feedbackEl = document.getElementById('feedback2');
+            const allBtns = btn.parentElement.querySelectorAll('.quiz-btn');
+            
+            // Reset buttons
+            allBtns.forEach(b => {
+                b.style.backgroundColor = 'white';
+                b.style.color = '#3f6212';
+            });
 
-        document.getElementById('prev').addEventListener('click', () => {
-            if (currentSlide > 1) {
-                currentSlide--;
-                showSlide(currentSlide);
+            if (isCorrect) {
+                btn.style.backgroundColor = '#65a30d'; // Green
+                btn.style.color = 'white';
+                feedbackEl.textContent = "Tepat sekali! Paranada punya 5 garis. ⭐";
+                feedbackEl.className = "feedback correct";
+                feedbackEl.style.color = "#3f6212";
+            } else {
+                btn.style.backgroundColor = '#ef4444'; // Red
+                btn.style.color = 'white';
+                feedbackEl.textContent = "Hampir... hitung lagi garisnya! 🧐";
+                feedbackEl.className = "feedback wrong";
             }
-        });
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' && currentSlide < totalSlides) {
-                currentSlide++;
-                showSlide(currentSlide);
-            } else if (e.key === 'ArrowLeft' && currentSlide > 1) {
-                currentSlide--;
-                showSlide(currentSlide);
-            }
-        });
+        }
     </script>
+
+    <!-- Decoration Animation Keyframes -->
+    <style>
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+    </style>
 </body>
 </html>
