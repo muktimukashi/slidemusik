@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide Musik: Notasi untuk Kelas 5</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            height: 80%;
+            position: relative;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .slide {
+            display: none;
+            padding: 40px;
+            text-align: center;
+            height: 100%;
+            box-sizing: border-box;
+        }
+        .slide.active {
+            display: block;
+        }
+        .slide h1 {
+            color: #ff6347;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .slide h2 {
+            color: #4682b4;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .slide p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .slide img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        .nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        button {
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+        button:hover {
+            background-color: #ff4500;
+        }
+        .note {
+            font-size: 3em;
+            color: #4682b4;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="slide1" class="slide active">
+            <h1>Selamat Datang!</h1>
+            <h2>Materi Notasi Musik untuk Kelas 5</h2>
+            <p>Hai teman-teman! Hari ini kita akan belajar tentang notasi musik. Notasi musik adalah cara menulis musik agar bisa dibaca dan dimainkan. Mari mulai petualangan kita!</p>
+            <img src="https://via.placeholder.com/400x200?text=Musik+Notasi" alt="Ilustrasi Musik">
+        </div>
+        <div id="slide2" class="slide">
+            <h2>Apa itu Notasi Musik?</h2>
+            <p>Notasi musik adalah simbol-simbol yang digunakan untuk menulis lagu. Dengan notasi, kita bisa tahu nada apa yang harus dimainkan dan berapa lama.</p>
+            <p>Contoh: Notasi membantu kita membaca lagu seperti membaca buku!</p>
+            <img src="https://via.placeholder.com/400x200?text=Simbol+Musik" alt="Simbol Musik">
+        </div>
+        <div id="slide3" class="slide">
+            <h2>Not Balok</h2>
+            <p>Not balok adalah garis-garis yang digunakan sebagai dasar untuk menulis not. Ada 5 garis dan 4 ruang di antaranya.</p>
+            <p>Garis-garis ini membantu kita menentukan tinggi rendahnya nada.</p>
+            <img src="https://via.placeholder.com/400x200?text=Not+Balok" alt="Not Balok">
+        </div>
+        <div id="slide4" class="slide">
+            <h2>Jenis-Jenis Not</h2>
+            <p>Ada beberapa jenis not:</p>
+            <ul style="text-align: left; display: inline-block;">
+                <li><span class="note">♪</span> Not bulat (whole note): Lama 4 ketukan</li>
+                <li><span class="note">♫</span> Not putih (half note): Lama 2 ketukan</li>
+                <li><span class="note">♬</span> Not hitam (quarter note): Lama 1 ketukan</li>
+                <li>Not delapan (eighth note): Lama 1/2 ketukan</li>
+            </ul>
+            <p>Coba ingat-ingat simbolnya!</p>
+        </div>
+        <div id="slide5" class="slide">
+            <h2>Kunci Musik</h2>
+            <p>Kunci musik menunjukkan nada dasar. Kunci G (treble clef) sering digunakan untuk lagu-lagu tinggi.</p>
+            <p>Kunci F (bass clef) untuk nada rendah.</p>
+            <img src="https://via.placeholder.com/400x200?text=Kunci+G" alt="Kunci G">
+        </div>
+        <div id="slide6" class="slide">
+            <h2>Ritme dan Tempo</h2>
+            <p>Ritme adalah pola ketukan dalam musik. Tempo adalah kecepatan lagu.</p>
+            <p>Contoh: Lagu cepat seperti "Twinkle Twinkle Little Star" punya ritme yang menyenangkan!</p>
+            <img src="https://via.placeholder.com/400x200?text=Ritme" alt="Ritme Musik">
+        </div>
+        <div id="slide7" class="slide">
+            <h2>Contoh Lagu Sederhana</h2>
+            <p>Mari lihat contoh notasi lagu "Do Re Mi":</p>
+            <p>Do (C) - Re (D) - Mi (E) - Do (C)</p>
+            <p>Coba nyanyikan sambil melihat notnya!</p>
+            <img src="https://via.placeholder.com/400x200?text=Lagu+Do+Re+Mi" alt="Notasi Do Re Mi">
+        </div>
+        <div id="slide8" class="slide">
+            <h1>Selamat Belajar!</h1>
+            <h2>Akhir Slide</h2>
+            <p>Sekarang kamu sudah tahu dasar notasi musik. Praktikkan dengan bermain alat musik atau menyanyi. Sampai jumpa di pelajaran berikutnya!</p>
+            <img src="https://via.placeholder.com/400x200?text=Terima+Kasih" alt="Terima Kasih">
+        </div>
+        <div class="nav">
+            <button id="prev">Sebelumnya</button>
+            <button id="next">Selanjutnya</button>
+        </div>
+    </div>
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 8;
+
+        function showSlide(slideNum) {
+            document.querySelectorAll('.slide').forEach(slide => slide.classList.remove('active'));
+            document.getElementById('slide' + slideNum).classList.add('active');
+        }
+
+        document.getElementById('next').addEventListener('click', () => {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        });
+
+        document.getElementById('prev').addEventListener('click', () => {
+            if (currentSlide > 1) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentSlide < totalSlides) {
+                currentSlide++;
+                showSlide(currentSlide);
+            } else if (e.key === 'ArrowLeft' && currentSlide > 1) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        });
+    </script>
+</body>
+</html>
