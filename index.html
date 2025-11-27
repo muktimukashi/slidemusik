@@ -19,26 +19,34 @@
         body {
             background-color: #f0fdf4; /* Light Mint Background */
             font-family: 'Nunito', sans-serif;
-            display: grid;
+            display: flex; /* Use flex to stack slides and nav */
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
             gap: 40px;
-            justify-content: center;
             padding: 40px 0;
             min-height: 100vh;
         }
 
-        /* 2. SLIDE CONTAINER STYLE */
+        /* 2. SLIDE CONTAINER STYLE (Responsive Update) */
         .slide-container {
-            width: 1280px;
-            height: 720px;
+            max-width: 1280px; /* Max size is 1280px */
+            width: 90vw;       /* Fluid width based on viewport */
+            aspect-ratio: 16 / 9; /* Maintain 16:9 ratio */
             background-color: #ffffff;
             border-radius: 24px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.08);
             position: relative;
             overflow: hidden;
-            display: flex;
+            display: none; /* Hidden by default, JS handles visibility */
             flex-direction: column;
             padding: 60px;
-            border: 4px solid #fff; /* White border for crispness */
+            border: 4px solid #fff;
+        }
+        
+        /* Ensure content sits above background blobs */
+        .slide-content, .title-wrapper, .content-area {
+            z-index: 10;
+            position: relative;
         }
 
         /* 2.1 Decorative Background Elements (Abstract Shapes) */
@@ -68,12 +76,6 @@
             border-radius: 50%;
         }
         
-        /* Ensure content sits above background blobs */
-        .slide-content, .title-wrapper, .content-area {
-            z-index: 10;
-            position: relative;
-        }
-
         /* 3. TYPOGRAPHY */
         h1, h2, h3 {
             font-family: 'Fredoka', sans-serif;
@@ -277,7 +279,84 @@
         .highlight-box strong {
             color: #b45309;
         }
+        
+        /* 5. NAVIGATION CONTROLS */
+        .navigation-controls {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            width: 90vw;
+            max-width: 1280px;
+            margin-top: 20px;
+            z-index: 20;
+        }
 
+        .nav-btn {
+            background-color: #059669; /* Emerald Green */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 20px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, opacity 0.3s;
+            box-shadow: 0 4px 10px rgba(5, 150, 105, 0.4);
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background-color: #047857;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .home-btn {
+            background-color: #f59e0b; /* Amber */
+            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.4);
+        }
+
+        .home-btn:hover:not(:disabled) {
+            background-color: #d97706;
+        }
+        
+        /* 6. RESPONSIVE MEDIA QUERIES */
+        @media (max-width: 1300px) {
+            /* Scale down large typography */
+            h1 { font-size: 56px; }
+            h2 { font-size: 40px; }
+            p, li, td, th { font-size: 20px; }
+            .slide-container { padding: 40px; }
+            .title-slide-layout .subtitle { font-size: 24px; }
+            .image-box { height: 300px; }
+            .quiz-btn { font-size: 18px; padding: 10px 20px; }
+            .question { font-size: 28px; }
+        }
+
+        @media (max-width: 768px) {
+            /* Mobile adjustments */
+            body { padding: 20px 0; gap: 20px; }
+            .slide-container { width: 95vw; aspect-ratio: 4/3; min-height: 300px; }
+            h1 { font-size: 40px; }
+            h2 { font-size: 28px; margin-bottom: 20px; }
+            p, li, td, th { font-size: 16px; }
+            .slide-container { padding: 20px; }
+            .two-column { grid-template-columns: 1fr; gap: 20px; }
+            .image-box { height: 200px; padding: 10px; border-width: 2px; }
+            .note-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .note-symbol { font-size: 40px; height: 50px; }
+            .note-name { font-size: 18px; }
+            .note-value { font-size: 22px; }
+            .options { flex-direction: column; gap: 10px; }
+            .quiz-btn { min-width: auto; padding: 10px 15px; font-size: 16px; }
+            .question { font-size: 20px; margin-bottom: 20px; }
+            .navigation-controls { gap: 10px; width: 95vw; }
+            .nav-btn { padding: 10px 15px; font-size: 16px; }
+        }
     </style>
 </head>
 <body>
@@ -407,7 +486,7 @@
         <h2>Saatnya Diam (Tanda Istirahat)</h2>
         <div class="content-area" style="flex-grow: 1;">
             <div class="two-column">
-                 <div class="image-box">
+                   <div class="image-box">
                     <!-- Rests Chart Image -->
                     <img src="http://googleusercontent.com/image_collection/image_retrieval/3058904620806964461" alt="Tabel simbol tanda istirahat musik">
                 </div>
@@ -492,8 +571,64 @@
             <p style="font-size: 20px; color: #9ca3af;">Materi Kelas 5 SD - Kurikulum Merdeka</p>
         </div>
     </div>
+    
+    <!-- Navigation Controls Container -->
+    <div class="navigation-controls">
+        <button id="prevBtn" class="nav-btn" onclick="prevSlide()">
+            <i class="fa-solid fa-arrow-left"></i> Sebelumnya
+        </button>
+        <button id="homeBtn" class="nav-btn home-btn" onclick="goHome()">
+            <i class="fa-solid fa-house"></i> Utama
+        </button>
+        <button id="nextBtn" class="nav-btn" onclick="nextSlide()">
+            Selanjutnya <i class="fa-solid fa-arrow-right"></i>
+        </button>
+    </div>
 
     <script>
+        let currentSlideIndex = 1;
+        // Count all elements with the class 'slide-container'
+        const totalSlides = document.querySelectorAll('.slide-container').length;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide-container');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            // Ensure n is within bounds
+            if (n > totalSlides) { currentSlideIndex = 1; }
+            if (n < 1) { currentSlideIndex = totalSlides; }
+            currentSlideIndex = n;
+
+            // Hide all slides
+            slides.forEach(slide => {
+                slide.style.display = 'none';
+            });
+
+            // Show current slide (use 'flex' as defined in CSS for internal layout)
+            const currentSlide = document.getElementById('slide' + currentSlideIndex);
+            if (currentSlide) {
+                currentSlide.style.display = 'flex';
+            }
+
+            // Update button states
+            prevBtn.disabled = currentSlideIndex === 1;
+            nextBtn.disabled = currentSlideIndex === totalSlides;
+        }
+
+        function nextSlide() {
+            showSlide(currentSlideIndex + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlideIndex - 1);
+        }
+
+        function goHome() {
+            showSlide(1);
+        }
+
+        // --- Existing Quiz Logic (modified to be safe) ---
         function checkAnswer(btn, isCorrect) {
             const feedbackEl = document.getElementById('feedback1');
             const allBtns = btn.parentElement.querySelectorAll('.quiz-btn');
@@ -540,6 +675,11 @@
                 feedbackEl.className = "feedback wrong";
             }
         }
+        
+        // Initial call on load
+        window.onload = function() {
+            showSlide(currentSlideIndex);
+        };
     </script>
 
     <!-- Decoration Animation Keyframes -->
